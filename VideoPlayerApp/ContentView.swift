@@ -15,13 +15,15 @@ struct ContentView: View {
     @State private var playerList: [AVPlayer] = []
     
     let videoURLs = [
-        
+        // bu linkler gösterilecek videoların bulundugu linklerin adresleri
         URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!,
         URL(string: "https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_7MB_MP4.mp4")!,
         URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4")!
     ]
     
     init() {
+        
+        // init, baslatici olarak hazırlanan taslaklardir.
         currentVideoIndex = 0
         player = AVPlayer(url: videoURLs[0])
         playerList.append(AVPlayer(url: videoURLs[0]))
@@ -83,10 +85,10 @@ struct ContentView: View {
             .onEnded { gesture in
                 player.volume = 0.0
                 if gesture.translation.width < 0 {
-                    // swiped left, play next video
+                    // sola kaydirip siradaki videoyu oynat
                     currentVideoIndex = (currentVideoIndex+1)%videoURLs.count
                 } else if gesture.translation.width > 0 {
-                    // swipe right, play previous video
+                    // saga kaydirip bir onceki videoyu oynat
                     currentVideoIndex = (currentVideoIndex-1 + videoURLs.count) % videoURLs.count
                 }
                 setupPlayer(index: currentVideoIndex)
